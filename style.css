@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+body {
+    font-family: "游ゴシック体", YuGothic, "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic", sans-serif;
+    padding:3rem;
+}
+
+h1 {
+    font-size: 1.2rem;
+}
+
+h2 {
+    margin:2rem 0 0 0;
+    font-size: 1.1rem;
+}

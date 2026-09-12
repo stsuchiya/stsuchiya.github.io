@@ -251,10 +251,8 @@
 
         <section id="writing">
             <h2>Writing / Thinking</h2>
-            <ul class="bordered-list">
-                <li><a href="https://note.com/s_tsuchiya">AXはDXと同じ道を辿るのか</a></li>
-                <li><a href="https://note.com/s_tsuchiya">AIが整えた学習の高速道路、その先にある渋滞</a></li>
-                <li><a href="https://note.com/s_tsuchiya">AI開発における「プロトタイプ」と「実運用」の境界について</a></li>
+            <ul class="bordered-list" id="writing-list">
+                <li>記事一覧を読み込んでいます。表示されない場合は<a href="https://note.com/s_tsuchiya" target="_blank">noteのページ</a>をご覧ください。</li>
             </ul>
             <p><a href="https://note.com/s_tsuchiya">noteで記事を見る →</a></p>
         </section>
@@ -271,5 +269,30 @@
         <p class="disclaimer">このサイトは株式会社フーリエの公式サイトではなく、個人の活動・実績・考察をまとめるための個人サイトです。</p>
     </footer>
 </div>
+<script>
+(function () {
+    var listEl = document.getElementById('writing-list');
+    var feedUrl = 'https://api.rss2json.com/v1/api.json?rss_url='
+        + encodeURIComponent('https://note.com/s_tsuchiya/rss');
+
+    fetch(feedUrl)
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+            if (data.status !== 'ok' || !data.items || !data.items.length) return;
+            listEl.innerHTML = '';
+            data.items.slice(0, 10).forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.link;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                a.textContent = item.title;
+                li.appendChild(a);
+                listEl.appendChild(li);
+            });
+        })
+        .catch(function () {});
+})();
+</script>
 </body>
 </html>
